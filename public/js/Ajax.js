@@ -1,11 +1,13 @@
 /**
-* Ajax Module controls most of the ajax requests
+* Ajax Module controls all of the ajax requests
+ *
+ * Paula George
 *
  */
 class Ajax {
 
     constructor(requestType){
-        this.arr = [1,2];
+        this.arr = [];
         this.lenOfMainArr = null ;
         this.request(requestType);
     }
@@ -125,8 +127,6 @@ class Ajax {
      */
     CreateRowsCols(arr ,bigLoopStart = 0 ){
         let tableId = document.getElementById('ajaxTable');
-        alert(bigLoopStart);
-        alert(arr.length);
         for(let i = bigLoopStart; i < arr.length ;i++){
             let row = document.createElement("TR");
             row.className = 'ajaxRow';
