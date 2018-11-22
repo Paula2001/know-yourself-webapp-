@@ -1,50 +1,59 @@
 /**
-* Ajax Module controls all of the ajax requests
+ * Ajax Module controls all of the ajax requests
  *
  * Paula George
-*
+ *
  */
 class Ajax {
 
-    constructor(requestType){
+    constructor(){
         this.arr = [];
         this.lenOfMainArr = null ;
-        this.request(requestType);
     }
 
     /**
-    *Ajax request to the  controller
-    *
-    * @param controller which will get array from the controller
-    *
-    * the function sends two ajax request one for index to fireup dispatch function
-    *
-    * the other request is the data request
-    *
-    * @return void
+     *Ajax request to the  controller
+     *
+     * @param controller which will get array from the controller
+     *
+     * the function sends two ajax request one for index to fireup dispatch function
+     *
+     * the other request is the data request
+     *
+     * @return void
      */
-    request(requestType){
-        $.ajax({
-            url:"index.php?flag="+true ,
-            type:"GET",
-
-        })
-        $.ajax({
-            url:"data.php" ,
-            type:"GET",
-            context: this,
-            success:function(data){
-                this.execute(data);
+    request(value = 'name') {
+        let self = this  ;
+        $(document).ready(function() {
+            let name = $('#' + value).val();
+            if (name == '' ||name == ' ' ) {
+                self.execute('[]');
+            }else{
+                jQuery.ajax({
+                    type: 'post',
+                    data: {ajax: 1, name: name},
+                    success: function () {
+                        jQuery.ajax({
+                            url: 'data.php',
+                            type: 'post',
+                            data: {ajax: 1},
+                            context: this,
+                            success: function (response) {
+                                self.execute(response);
+                            }
+                        });
+                    }
+                });
             }
-        })
+        });
     }
     /**
-    *Creating Elements and pushing results into the view
-    *
-    * @param json object
-    *
-    * @return void
-    *
+     *Creating Elements and pushing results into the view
+     *
+     * @param json object
+     *
+     * @return void
+     *
      */
     createElements(arr){
         let main = document.getElementById('ajax');
@@ -64,13 +73,18 @@ class Ajax {
      *
      */
     modifyElements(arr){
-        let col = document.getElementsByClassName('ajaxCol');
+        let col = document.getElementsByClassName('link');
         let count = 0 ;
         for(let i = 0; i < arr.length;i++){
-            for(let j = 0; j < arr[0].length;j++){
-                col[count].innerHTML = arr[i][j];
-                count++;
-               }
+            for(let j = 0; j < arr[0].length;j++)
+            {
+                if(j % 2 === 0 ) {
+
+                }else {
+                    col[count].innerHTML = this.replace(arr[i][j]);
+                    count++;
+                }
+            }
         }
     }
 
@@ -82,7 +96,8 @@ class Ajax {
      * @return void
      */
     execute(jsonObj){
-        let array = JSON.parse(jsonObj);
+        let array =  JSON.parse(jsonObj);
+        alert(array);
         if(this.lenOfMainArr === array.length){
             this.modifyElements(array);
         }else if(this.lenOfMainArr === null) {
@@ -111,14 +126,13 @@ class Ajax {
         //add and modify
         if(this.lenOfMainArr < arrlen){
             this.CreateRowsCols(arr,this.lenOfMainArr);
-
         }
         this.lenOfMainArr = arrlen;
         this.modifyElements(arr);
 
     }
     /**
-     * @param array ,int
+     * @param {array} arr ,{int} bigLoopStart default 0
      *
      * Create  rows and cols inside ajaxTable
      *
@@ -131,18 +145,25 @@ class Ajax {
             let row = document.createElement("TR");
             row.className = 'ajaxRow';
             tableId.appendChild(row);
-
             for(let j = 0;j < arr[0].length; j++) {
-                let col = document.createElement("TD");
-                col.className = 'ajaxCol';
-                let text = document.createTextNode(arr[i][j]);
-                col.appendChild(text);
-                document.getElementsByClassName('ajaxRow')[i].appendChild(col);
+                if(j % 2 === 0){
+
+                }else {
+                    let col = document.createElement("TD");
+                    let link = document.createElement('a');
+                    link.className ='link';
+                      col.className = 'ajaxCol';
+                    link.innerHTML = this.replace(arr[i][j]);
+                    link.href = 'Posts/'+arr[i][j-1]+'/edit';
+                    document.getElementsByClassName('ajaxRow')[i].appendChild(col);
+                    document.getElementsByClassName('ajaxCol')[i].appendChild(link);
+
+                }
             }
         }
     }
     /**
-     * @param int
+     * @param {int} lastArrLength
      *
      * setter for lenOfMainArr
      *
@@ -153,4 +174,19 @@ class Ajax {
         this.lenOfMainArr = lastArrLength ;
     }
 
+    /**
+     * @param {string} arrText
+     *
+     * replace function
+     *
+     *@return string
+     */
+    replace(arrText){
+        let name = $('#name').val();
+        let textReplace = arrText.replace(name.trim(),"<strong>"+name.trim()+"</strong>");
+        return textReplace ;
+    }
+
+
 }
+
