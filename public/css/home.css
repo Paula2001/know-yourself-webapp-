@@ -1,0 +1,47 @@
+
+#search{
+    position: relative;
+    display: block;
+    margin-left: 40%;
+    border: none;
+    width: 40%;
+    background-color: rgba(217, 232, 211, 0.5);
+    font-size: 20px;
+    border-radius: 2%;
+    height: 50px;
+    z-index: 2;
+    transition: background-color ,2s;
+}
+#search:focus {
+    background-color: white;
+    transition: background-color ,2s;
+}
+search{
+    position: absolute;
+    top: 40%;
+    width: 80%;
+    text-align: center;
+}
+#ajax{
+    z-index: 1;
+    position: relative;
+    width: 40%;
+    margin-left: 40%;
+    -webkit-box-shadow: 1px 3px 14px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 1px 3px 14px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.75);
+    overflow: hidden;
+}
+#ajaxTable{
+    position: relative;
+    font-size: 22px;
+    width: 100%;
+}
+.ajaxCol{
+    padding-bottom: 5px;
+    background-color: rgba(217, 232, 211, 0.6);
+}
+.ajaxcol a {
+    text-decoration: none;
+    color: black;
+}

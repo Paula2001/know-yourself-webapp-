@@ -1,0 +1,7 @@
+body ,.menuFrame{
+    margin: 0px;
+    font-family: "Chaparral Pro Light";
+    background-image: url("../images/background.jpg");
+    background-attachment: fixed;
+    background-size: 100% 100%;
+}
