@@ -1,7 +1,14 @@
 
-<script src="/js/jquery.js"></script>
-<script src="/js/Ajax.js"></script>
+<script src="/js/jquery.js" type="text/javascript"></script>
+<script src="/js/Ajax.js" type="text/javascript"></script>
 <?php
+/**
+ *Sessions
+ *
+ */
+session_start();
+$_SESSION['login'] = true ;
+
 
 /**
  * Front controller
@@ -20,16 +27,6 @@
  */
 require '../vendor/autoload.php';
 
-/*
- *Sessions
- *
- */
-session_start();
-$_SESSION['login'] = true ;
-/**
- * Twig
- */
-Twig_Autoloader::register();
 
 
 /**
@@ -43,8 +40,7 @@ $router->add('{controller}/{action}');
 $router->add('{controller}/{id:\d+}/{action}');
 $router->add('admin/{controller}/{action}', ['namespace' => 'Admin']);
 $router->dispatch($_SERVER['QUERY_STRING']);
-if(isset($_GET['flag'])){
-    $router->dispatch($_SERVER['QUERY_STRING']);
-}
+
+
 
 

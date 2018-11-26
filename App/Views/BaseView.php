@@ -1,5 +1,6 @@
 <?php
 namespace App\Views;
+
 class BaseView
 {
 
@@ -14,7 +15,7 @@ class BaseView
 static function loadCssFiles(array $filesarr){
     for($i = 0; $i < sizeof($filesarr); $i++) {
         $cssFile =   $filesarr[$i] .'.css';
-        $css = '<link rel="stylesheet" href="css/' . $cssFile . '" type="text/css"  />' . "\n";
+        $css = '<link rel="stylesheet" href="/css/' . $cssFile . '" type="text/css"  />' . "\n";
         echo $css;
     }
 }
@@ -38,7 +39,7 @@ static function navigation(string $menu){
     $mainNav = '<nav>
                   <ul class="menuFrame">
                     <li class="linkNav"><a target="_blank" href="#"> Login </a></li>
-                    <li class="linkNav"><a href="home/registration">SignUp</a> </li>
+                    <li class="linkNav"><a href="registration/index">SignUp</a> </li>
                   </ul>
                 </nav>';
     if($menu === 'index'){
@@ -57,7 +58,7 @@ static function navigation(string $menu){
      *
      * @return void
      */
-static function header(string $title ,array $cssElements = ['home','nav']){
+static function header(string $title ,array $cssElements = ['home','nav','main']){
     echo "<!DOCTYPE html>
                 <html>
                     <head>

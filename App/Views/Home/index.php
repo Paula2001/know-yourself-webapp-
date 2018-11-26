@@ -1,12 +1,29 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
 
+<?php
+use App\Views\BaseView;
+$file = dirname(__DIR__) . '/'.'BaseView.php';
+require_once $file ;
+echo BaseView::header('Home');
+?>
 
-    <title>Home</title>
-</head>
 <body>
-    <button onclick="ajax.request('get')">Click</button>
+<?php
+echo BaseView::navigation('index');
+?>
+
+<search>
+    <input type='text'  autocomplete="off" placeholder='Search' id='search'>
+    <div id="ajax"></div>
+</search>
+<script>
+    ajax = new Ajax(true);
+
+    window.onclick = function () {
+        ajax.execute('[]');
+    }
+    document.getElementById('search').onkeyup = function(){ajax.request('search');}
+</script>
+
+
 </body>
 </html>
