@@ -16,7 +16,7 @@
          */
         public function getPosts($var){
             $dp = self::getDB();
-            $query1 = "SELECT * FROM `posts` WHERE `post` LIKE '".trim($var).'%'."'";
+            $query1 = "SELECT * FROM `users` WHERE `first_name` LIKE '".trim($var).'%'."'";
             $stmt = $dp->query($query1);
             if($stmt) {
                 $results = $stmt->fetch_all(MYSQLI_NUM);
