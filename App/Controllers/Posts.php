@@ -44,8 +44,10 @@ class Posts extends \Core\Controller
      */
     public function editAction()
     {
+        if(isset($GLOBALS['id'])) {
+            $id = $GLOBALS['id'];
+            echo $id;
+        }
         echo 'Hello from the edit action in the Posts controller!';
-        echo '<p>Route parameters: <pre>' .
-             htmlspecialchars(print_r($this->route_params, true)) . '</pre></p>';
     }
 }

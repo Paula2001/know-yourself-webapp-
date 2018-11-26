@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use \Core\View;
+use App\Models\Hom ;
 
 /**
  * Home controller
@@ -40,14 +41,13 @@ class Home extends \Core\Controller
      */
     public function indexAction()
     {
-        $_SESSION['data'] = 'yarab tsht3';
+        if(isset($_POST['ajax']) ) {
+            $posts = Hom::getPosts($_POST['name']);
+            $arr = $posts;
+            $_SESSION['data'] = json_encode($arr);
+        }
 
         View::render('Home/index.php');
-
-
-//        View::renderTemplate('Home/index.html', [
-//            'name'    => 'Dave',
-//            'colours' => ['red', 'green', 'blue']
-//        ]);
     }
+
 }
