@@ -5,20 +5,24 @@ class BaseView
 {
 
     /**
-     * @param array $files
+     * @param array $css_files
+     * @param string $js_file
      *
      * css loading function
      *
      * @return void
      */
 
-static function loadCssFiles(array $filesarr){
-    for($i = 0; $i < sizeof($filesarr); $i++) {
-        $cssFile =   $filesarr[$i] .'.css';
+static function loadFiles(array $css_files ,string $js_file){
+   for($i = 0; $i < sizeof($css_files) ; $i++) {
+        $cssFile =   $css_files[$i] .'.css';
         $css = '<link rel="stylesheet" href="/css/' . $cssFile . '" type="text/css"  />' . "\n";
         echo $css;
     }
+    $js = "<script src=/js/".$js_file." type='text/javascript'></script>" . "\n";
+   echo $js ;
 }
+
     /**
      * @param string menu
      *
@@ -52,19 +56,21 @@ static function navigation(string $menu){
     /**
      * @param string $title
      *
+     * @param string $js_file
+     *
      * @param array $cssElements
      *
      * this is the header function
      *
      * @return void
      */
-static function header(string $title ,array $cssElements = ['home','nav','main']){
+static function header(string $title ,string $js_file,array $cssElements = ['home','nav','main']){
     echo "<!DOCTYPE html>
                 <html>
                     <head>
                     <meta charset='UTF-8'>
                     <title> $title  </title>";
-                    self::loadCssFiles($cssElements);
+                    self::loadFiles($cssElements ,$js_file);
                     echo '</head>';
 }
 
