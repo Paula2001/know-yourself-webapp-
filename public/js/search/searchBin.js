@@ -125,7 +125,7 @@ class Search extends ajax{
     modifyElements(array){
         let link = document.getElementsByClassName("searchLink") ;
         for(let i = 0; i < array.length; i++){
-            link[i].href = array[i].id;
+            link[i].href = "/home/"+array[i].id+"/index";
             link[i].innerHTML = this.autoComplete(array ,i);
         }
         this.lenOfMainArr = array.length ;
