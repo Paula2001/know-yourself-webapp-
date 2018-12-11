@@ -12,19 +12,15 @@
          *
          * Get posts
          *
-         * @return void
+         * @return array|int
          */
         public function getPosts($var){
             $dp = self::getDB();
-            $query1 = "SELECT * FROM `users` WHERE `first_name` LIKE '".trim($var).'%'."'";
+            $query1 = "SELECT * FROM `users` 
+              WHERE CONCAT(`first_name`, ' ', `last_name`)   LIKE '".trim($var).'%'."'
+                OR `last_name`  LIKE '".trim($var).'%'."'";
             $stmt = $dp->query($query1);
-            if($stmt) {
-                $results = $stmt->fetch_all(MYSQLI_NUM);
-                return $results ;
-            }else{
-                return;
-            }
 
-
+            return ($stmt) ? $stmt->fetch_all(MYSQLI_ASSOC): 0  ;
         }
     }
