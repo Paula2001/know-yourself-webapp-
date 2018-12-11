@@ -6,6 +6,12 @@
  *
  */
 class Ajax {
+    /**
+     * @param {boolean} searchBool
+     * @param {boolean} postBool
+     *
+     * @return void
+     */
     constructor(searchBool = false, postBool = false) {
         this.arr = [];
         this.lenOfMainArr = null;
@@ -17,9 +23,13 @@ class Ajax {
     /**
      *Ajax request to the  controller
      *
-     * @param {string} inputId
+     * @param {string} inputIdClass
+     *
+     * @param {boolean} classNum
      *
      * @param {boolean} idOrClass
+     *
+     * @param {string} fileName
      *
      * the function sends two ajax request one for index to fireup dispatch function
      *
@@ -27,10 +37,10 @@ class Ajax {
      *
      * @return void
      */
-    request(inputIC ,idOrClass = true ,classNum = 0) {
+    request(inputIdClass ,idOrClass = true ,classNum = 0 ,fileName = 'data.php') {
         let self = this;
         $(document).ready(function () {
-            self.input = (idOrClass) ? document.getElementById(inputIC).value : document.getElementsByClassName(inputIC)[classNum].value ;
+            self.input = (idOrClass) ? document.getElementById(inputIdClass).value : document.getElementsByClassName(inputIdClass)[classNum].value ;
             if (self.input.match(/^\s+/) || self.input === "") {
                 self.execute('[]');
             } else {
@@ -39,12 +49,11 @@ class Ajax {
                     data: {ajax: 1, name: self.input},
                     success: function () {
                         jQuery.ajax({
-                            url: '../data.php',
+                            url: '../'+fileName,
                             type: 'post',
                             context: this,
                             success: function (response){
-                                let x = response;
-                                self.execute(x);
+                                self.execute(response);
                             }
                         });
                     }
@@ -105,8 +114,8 @@ class Search extends ajax{
         link.className = "searchLink";
         document.getElementsByClassName("searchRow")[i].appendChild(link);
     }
-    createElements(array,loopbeg = 0){
-        for(let i = loopbeg; i < array.length;i++) {
+    createElements(array,loopBeginning = 0){
+        for(let i = loopBeginning; i < array.length;i++) {
             this.createCol();
             this.createRow(i);
             this.createLink(array,i);
@@ -128,7 +137,6 @@ class Search extends ajax{
             for(let i = this.lenOfMainArr - 1; i >= array.length; i--){
                 row[i].parentNode.removeChild(row[i]);
                 document.getElementById('searchTable').removeChild(col[i]);
-
             }
         }else{
             for(let i = this.lenOfMainArr; i < array.length;i++) {
