@@ -1,6 +1,6 @@
 
 <script src="/js/jquery.js" type="text/javascript"></script>
-<script src="/js/Ajax.js" type="text/javascript"></script>
+
 <?php
 /**
  *Sessions
