@@ -10,29 +10,19 @@ echo BaseView::header('Registration',['registration','main']);
 <h1 id="title">Create a new account</h1>
 <form id="regForm" name="reg" method="post" action="complete">
     <div id="errorContainer"></div>
-    <input placeholder="First Name" onfocusout="registration.validateText(0)" type="text" class="regTextField" name="firstName">
-    <input placeholder="Last Name" onfocusout="registration.validateText(1)" type="text" class="regTextField" name="lastName">
-    <input placeholder="Password" onfocusout="registration.validateText(2)" type="password" class="regTextField" name="password">
-    <input placeholder="Confirm your password" onkeyup="registration.validateText(3)" type="password" class="regTextField" >
-    <input placeholder="Email" type="email" onfocusout="registration.validateText(4)" class="regTextField" name="email">
+    <div id="textArea">
+
+    </div>
     <birthday>
         <h3>Birthday</h3>
-            <select  name="days"  class="age" onchange="registration.validateText(0,true)">
-                <option>Day</option>
-            </select>
-            <select  name="months" class="age" onchange="registration.validateText(1,true)">
-                <option>Month</option>
-            </select>
-            <select  name="years" class="age" onchange="registration.validateText(2,true)">
-                <option>year</option>
-            </select>
+
     </birthday>
     <br>
     <br>
     <gender>
-        <input onchange="" class="gender"  type="radio" value="1" name="gender">
+        <input class="gender"   type="radio" value="1" name="gender">
         <label>Male</label>
-        <input onchange="" class="gender" checked type="radio" value="0" name="gender">
+        <input class="gender" checked type="radio" value="0" name="gender">
         <label>Female</label>
     </gender>
     <br>
@@ -41,10 +31,7 @@ echo BaseView::header('Registration',['registration','main']);
     <input value="Sign Up"  disabled  id="submit" type="submit">
 
 </form>
-<script src="/js/registration.js"></script>
-<script>
-        registration.addOptions();
+<script src=/js/registration/registrationBin.js type='text/javascript'></script>
 
-</script>
 </body>
 </html>
