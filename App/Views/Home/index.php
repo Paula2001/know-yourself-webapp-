@@ -12,17 +12,12 @@ echo BaseView::navigation('index');
 ?>
 
 <search>
-    <input type='text'  autocomplete="off" placeholder='Search' id='search'>
+    <input type='text'  autocomplete="off" placeholder='Search with name only' id='search'>
     <div id="ajax"></div>
 </search>
-<script>
-    ajax = new Ajax(true);
+<script src=/js/search/searchBin.js type='text/javascript'></script>
 
-    window.onclick = function () {
-        ajax.execute('[]');
-    }
-    document.getElementById('search').onkeyup = function(){ajax.request('search');}
-</script>
+
 
 
 </body>
