@@ -42,8 +42,8 @@ class Home extends \Core\Controller
     public function indexAction()
     {
         if(isset($_POST['ajax']) ) {
-            $posts = Hom::getPosts($_POST['name']);
-            $arr = $posts;
+            $names = Hom::getPosts($_POST['name']);
+            $arr = $names;
             $_SESSION['data'] = json_encode($arr);
         }
 
