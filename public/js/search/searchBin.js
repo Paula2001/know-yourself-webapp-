@@ -6,12 +6,12 @@
  *
  */
 class Ajax {
-    constructor(searchBool = false ,postBool = false){
+    constructor(searchBool = false, postBool = false) {
         this.arr = [];
-        this.lenOfMainArr = null ;
+        this.lenOfMainArr = null;
         this.input = null;
         this.searchBool = searchBool;
-        this.postBool = postBool ;
+        this.postBool = postBool;
     }
 
     /**
@@ -19,30 +19,32 @@ class Ajax {
      *
      * @param {string} inputId
      *
+     * @param {boolean} idOrClass
+     *
      * the function sends two ajax request one for index to fireup dispatch function
      *
      * the other request is the data request
      *
      * @return void
      */
-    request(inputId) {
-        let self = this  ;
-        $(document).ready(function() {
-            self.input = $('#' + inputId).val();
-            if (self.input == '' ||self.input == ' ' ) {
+    request(inputIC ,idOrClass = true ,classNum = 0) {
+        let self = this;
+        $(document).ready(function () {
+            self.input = (idOrClass) ? document.getElementById(inputIC).value : document.getElementsByClassName(inputIC)[classNum].value ;
+            if (self.input.match(/^\s+/) || self.input === "") {
                 self.execute('[]');
-            }else{
+            } else {
                 jQuery.ajax({
                     type: 'post',
                     data: {ajax: 1, name: self.input},
                     success: function () {
                         jQuery.ajax({
-                            url: 'data.php',
+                            url: '../data.php',
                             type: 'post',
-                            data: {ajax: 1},
                             context: this,
-                            success: function (response) {
-                                self.execute(response);
+                            success: function (response){
+                                let x = response;
+                                self.execute(x);
                             }
                         });
                     }
@@ -50,6 +52,7 @@ class Ajax {
             }
         });
     }
+
     /**
      * @param {json} jsonObj
      *
@@ -57,8 +60,8 @@ class Ajax {
      *
      * @return void
      */
-    execute(){
-        console.log(this.arr);
+    execute(response) {
+        alert(response);
     }
 }
 module.exports = Ajax ;

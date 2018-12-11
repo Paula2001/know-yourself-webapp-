@@ -36,8 +36,8 @@ class Search extends ajax{
         link.className = "searchLink";
         document.getElementsByClassName("searchRow")[i].appendChild(link);
     }
-    createElements(array,loopbeg = 0){
-        for(let i = loopbeg; i < array.length;i++) {
+    createElements(array,loopBeginning = 0){
+        for(let i = loopBeginning; i < array.length;i++) {
             this.createCol();
             this.createRow(i);
             this.createLink(array,i);
@@ -59,7 +59,6 @@ class Search extends ajax{
             for(let i = this.lenOfMainArr - 1; i >= array.length; i--){
                 row[i].parentNode.removeChild(row[i]);
                 document.getElementById('searchTable').removeChild(col[i]);
-
             }
         }else{
             for(let i = this.lenOfMainArr; i < array.length;i++) {
