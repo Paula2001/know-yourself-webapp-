@@ -4,11 +4,15 @@
   "description": "",
   "main": "Ajax.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "watchSea": "watchify search/Search.js -o search/searchBin.js",
+    "watchReg": "watchify registration/Registration.js -o registration/registrationBin.js"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "browserify": "^16.2.3"
+  },
+  "dependencies": {
+    "watchify": "^3.11.0"
   }
 }
