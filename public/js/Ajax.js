@@ -5,18 +5,30 @@
  *
  */
 class Ajax {
-    constructor(searchBool = false ,postBool = false){
+    /**
+     * @param {boolean} searchBool
+     * @param {boolean} postBool
+     *
+     * @return void
+     */
+    constructor(searchBool = false, postBool = false) {
         this.arr = [];
-        this.lenOfMainArr = null ;
+        this.lenOfMainArr = null;
         this.input = null;
         this.searchBool = searchBool;
-        this.postBool = postBool ;
+        this.postBool = postBool;
     }
 
     /**
      *Ajax request to the  controller
      *
-     * @param {string} inputId
+     * @param {string} inputIdClass
+     *
+     * @param {boolean} classNum
+     *
+     * @param {boolean} idOrClass
+     *
+     * @param {string} fileName
      *
      * the function sends two ajax request one for index to fireup dispatch function
      *
@@ -24,23 +36,22 @@ class Ajax {
      *
      * @return void
      */
-    request(inputId) {
-        let self = this  ;
-        $(document).ready(function() {
-            self.input = $('#' + inputId).val();
-            if (self.input == '' ||self.input == ' ' ) {
+    request(inputIdClass ,idOrClass = true ,classNum = 0 ,fileName = 'data.php') {
+        let self = this;
+        $(document).ready(function () {
+            self.input = (idOrClass) ? document.getElementById(inputIdClass).value : document.getElementsByClassName(inputIdClass)[classNum].value ;
+            if (self.input.match(/^\s+/) || self.input === "") {
                 self.execute('[]');
-            }else{
+            } else {
                 jQuery.ajax({
                     type: 'post',
                     data: {ajax: 1, name: self.input},
                     success: function () {
                         jQuery.ajax({
-                            url: 'data.php',
+                            url: '../'+fileName,
                             type: 'post',
-                            data: {ajax: 1},
                             context: this,
-                            success: function (response) {
+                            success: function (response){
                                 self.execute(response);
                             }
                         });
@@ -49,6 +60,7 @@ class Ajax {
             }
         });
     }
+
     /**
      * @param {json} jsonObj
      *
@@ -56,8 +68,8 @@ class Ajax {
      *
      * @return void
      */
-    execute(){
-        console.log(this.arr);
+    execute(response) {
+        alert(response);
     }
 }
 module.exports = Ajax ;
