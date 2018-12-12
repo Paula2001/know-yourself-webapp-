@@ -3,6 +3,7 @@ namespace App\Controllers ;
 use App\Models\Reg;
 use \Core\View ;
 class Registration extends \Core\Controller{
+    private $id;
     /**
     *
     * loading the registration index
@@ -10,10 +11,15 @@ class Registration extends \Core\Controller{
     * @return void
     */
     public function indexAction(){
-
+        if(isset($_COOKIE['set'])) {
+            setcookie('set' ,'',time() - 1);
+        }
         if(isset($_POST['ajax'])) {
             $resultEncode = json_encode(Reg::checkEmail($_POST['name']));
             $_SESSION['data'] = $resultEncode;
+        }
+        if(isset($_POST['submit'])){
+            $this->id = $this->generateRandom();
         }
         View::render('Registration/index.php');
     }
@@ -25,13 +31,17 @@ class Registration extends \Core\Controller{
     *
     */
     public function completeAction(){
-        if($this->modelProcessing()){
+        if(!isset($_COOKIE['set'])) {
             $id = $this->generateRandom();
+            setcookie('set', $id, 0);
+            $this->id = $id;
+        }
+            if($this->modelProcessing()){
             $age = $_POST['years'] .'-'. $_POST['months'] .'-'. $_POST['days'];
             $password = password_hash($_POST['password'],PASSWORD_DEFAULT);
             $currentTime = date('Y/m/d-H:i:s');
 
-            if(Reg::insertData($id,
+            Reg::insertData($this->id,
             $_POST['firstName'],
             $_POST['lastName'],
             $password,
@@ -39,13 +49,11 @@ class Registration extends \Core\Controller{
             $age ,
             $_POST['gender'],
             $currentTime
-            )){
-                echo '<p class="success">You\'ve joined our big famous yarab sam7ne 3ala 2l kdb dh website</p>' ;
-                echo '<a href="/home/index" class="success">click here to login</a>' ;
-            };
+            );
+            $extension  = $this->imageUploading($this->id);
 
         }
-        View::render('Registration/complete.php');
+        View::render('Registration/complete.php' , $this->convertToArray($age ,$extension ) ) ;
     }
     /**
     *
@@ -64,13 +72,21 @@ class Registration extends \Core\Controller{
         return true ;
     }
 
+
+    protected function before()
+    {
+        if(isset($_COOKIE['set'])) {
+            $this->id = $_COOKIE['set'];
+        }
+        return true;
+    }
+
     /**
      * generate random id consist of email as a salt factor
      *
      * @return string
      */
     private function generateRandom(){
-
         $string = $_POST['email'];
         $string = str_replace("@","",$string);
         $string = preg_replace("/\.[a-zA-Z]+/","",$string);
@@ -86,4 +102,21 @@ class Registration extends \Core\Controller{
         }
         return $result ;
     }
+
+    /**
+     * @param int $age
+     * @param {string} $extension
+     *
+     * convert variables to array to pass it to the view
+     *
+     * @return array
+     */
+    private function convertToArray($age ,$extension){
+        $image_name = $this->id . ".$extension" ;
+        $name = ucfirst($_POST['firstName']) . " " .  ucfirst($_POST['lastName']) ;
+        $email = $_POST['email'];
+        $gender = ($_POST['gender'])? "Male" : "Female" ;
+        return array($image_name ,$name ,$email ,$age ,$gender);
+    }
+
 }
