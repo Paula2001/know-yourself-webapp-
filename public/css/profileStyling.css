@@ -1,0 +1,35 @@
+#profile_container{
+    margin: 0 auto;
+    position: relative;
+    width: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    max-width: 1000px;
+}
+#profile_img{
+    border: white solid 2px;
+    width: 100%;
+    position: relative;
+    margin:0 auto;
+    max-width: 1000px;
+}
+.profile_text{
+    background-color: rgba(0, 0, 0, 0.5);
+}
+#mainText{
+    text-align: center;
+}
+#proceed {
+    font-size: 19px;
+    color: white;
+    position: relative;
+    border: none;
+    text-decoration: none;
+    padding: 10 10 10 10;
+    background: linear-gradient(#69a74e, #3b6e22);
+    box-shadow: inset 0 1px 1px #a4e388;
+    text-shadow: 1px 1px 2px black;
+
+}
+#proceed:hover{
+    background: linear-gradient(#a4e388, #3b6e22);
+}
