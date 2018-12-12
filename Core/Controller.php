@@ -70,4 +70,39 @@ abstract class Controller
     protected function after()
     {
     }
+
+    /**
+     * @param int $id
+     * @param string $buttonName
+     *
+     * this method handles image uploads and return a string
+     *
+     * @return string
+     */
+    protected function imageUploading($id , $buttonName = 'submit' ){
+        if(isset($_POST[$buttonName])){
+            $fileOriName = $_FILES['image']['name'];
+            $fileSize = $_FILES['image']['size'];
+            $fileTmp =$_FILES['image']['tmp_name'];
+            $fileType=$_FILES['image']['type'];
+            $types = array('jpg','png','gif','jpeg');
+            $errors = array() ;
+            $fileExt = preg_match('/\w+\z/',$fileOriName,$extension );
+            if($fileSize > 2097152){
+                array_push($errors ,'exceed size');
+            }
+            if(!in_array($extension[0],$types)){
+                array_push($errors,'not a valid type');
+            }
+
+            if(!empty($errors)){
+                print_r($errors);
+            }else{
+                $uploadedFile = "uploads/".$id.".$extension[0]" ;
+                move_uploaded_file($fileTmp,$uploadedFile);
+                return $extension[0];
+            }
+
+        }
+    }
 }
