@@ -80,3 +80,7 @@ label{
     position: static;
 
 }
+#file_upload{
+    font-size: 19px;
+    margin-left: 10px;
+}
