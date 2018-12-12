@@ -6,6 +6,12 @@
  *
  */
 class Ajax {
+    /**
+     * @param {boolean} searchBool
+     * @param {boolean} postBool
+     *
+     * @return void
+     */
     constructor(searchBool = false, postBool = false) {
         this.arr = [];
         this.lenOfMainArr = null;
@@ -17,9 +23,13 @@ class Ajax {
     /**
      *Ajax request to the  controller
      *
-     * @param {string} inputId
+     * @param {string} inputIdClass
+     *
+     * @param {boolean} classNum
      *
      * @param {boolean} idOrClass
+     *
+     * @param {string} fileName
      *
      * the function sends two ajax request one for index to fireup dispatch function
      *
@@ -27,10 +37,10 @@ class Ajax {
      *
      * @return void
      */
-    request(inputIC ,idOrClass = true ,classNum = 0) {
+    request(inputIdClass ,idOrClass = true ,classNum = 0 ,fileName = 'data.php') {
         let self = this;
         $(document).ready(function () {
-            self.input = (idOrClass) ? document.getElementById(inputIC).value : document.getElementsByClassName(inputIC)[classNum].value ;
+            self.input = (idOrClass) ? document.getElementById(inputIdClass).value : document.getElementsByClassName(inputIdClass)[classNum].value ;
             if (self.input.match(/^\s+/) || self.input === "") {
                 self.execute('[]');
             } else {
@@ -39,12 +49,11 @@ class Ajax {
                     data: {ajax: 1, name: self.input},
                     success: function () {
                         jQuery.ajax({
-                            url: '../data.php',
+                            url: '../'+fileName,
                             type: 'post',
                             context: this,
                             success: function (response){
-                                let x = response;
-                                self.execute(x);
+                                self.execute(response);
                             }
                         });
                     }
