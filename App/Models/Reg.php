@@ -10,7 +10,9 @@
             $stmt = $dp->prepare($query);
             $stmt->bind_param('ssssssis',$id,$firstName,$lastName,$passwd,$email,$age,$gender,$currentTime);
             $stmt->execute();
+
             return  ($stmt->affected_rows) ? true : false ;
+
         }
         public static function checkEmail(string $emailInput){
             $dp = self::getDB();
