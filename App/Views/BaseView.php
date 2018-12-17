@@ -23,34 +23,41 @@ class BaseView
     }
 
     /**
-     * @param string menu
      *
      * choose between to sets of menu
      *
      * @return string
      *
      */
-    static function navigation(string $menu)
+    static function navigation()
     {
-        $nav = '<nav>
+        $name = (isset($_SESSION['name']))? $_SESSION['name']:0;
+        $nav = "<nav>
+                  <ul class='menuFrame'>
+                  <form action='' method='post'>
+                    <li style='margin: 0px;' class='linkNav'><input type='submit' name='logout' value='logOut'></li>
+                   </form>
+                    <li class='linkNav'><a href='#'>Messages</a></li>
+                    <li class='linkNav'><a href='#'>".$name."</a></li>
+                    <li class='searchNav'>
+                        <input type='text'  autocomplete='off' placeholder='Search By Name' id='search'>
+                        <div id='ajax'></div>
+                    </li>
+                  </ul>
+                </nav>";
+        $nav2 = '<nav>
                   <ul class="menuFrame">
-                    <li class="link"><a href="#"></a> new stuff </li>
-                    <li class="link"><a href="#"></a> new menu </li>
-                    <li class="link"><a href="#"></a> SignUp</li>
-                    <li class="search"><input type="text"> </li>
+                    <li class="linkNav"><a href="/login/index">LogIn</a></li>
+                    <li class="linkNav"><a href="/registration/index">Registration</a></li>
+                    
+                    <li class="searchNav"><input type="text"  autocomplete="off" placeholder="Search By Name" id="search">
+    <div id="ajax"></div>
+</li>
+
                   </ul>
                 </nav>';
-        $mainNav = '<nav>
-                  <ul class="menuFrame">
-                    <li class="linkNav"><a target="_blank" href="home/index"> Login </a></li>
-                    <li class="linkNav"><a href="/registration/index">SignUp</a> </li>
-                  </ul>
-                </nav>';
-        if ($menu === 'index') {
-            return $mainNav;
-        } else {
-            return $nav;
-        }
+        return (isset($_SESSION['id']))? $nav : $nav2 ;
+
     }
 
     /**
