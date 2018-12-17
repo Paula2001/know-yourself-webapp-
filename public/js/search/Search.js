@@ -31,7 +31,7 @@ class Search extends ajax{
     }
     createLink(array,i){
         let link = document.createElement("A");
-        link.href = array[i].id;
+        link.href ="/home/"+array[i].id+"/index";
         link.innerHTML = this.autoComplete(array ,i);
         link.className = "searchLink";
         document.getElementsByClassName("searchRow")[i].appendChild(link);
