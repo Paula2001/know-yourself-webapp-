@@ -38,7 +38,7 @@ class BaseView
                     <li style='margin: 0px;' class='linkNav'><input type='submit' name='logout' value='logOut'></li>
                    </form>
                     <li class='linkNav'><a href='#'>Messages</a></li>
-                    <li class='linkNav'><a href='#'>".$name."</a></li>
+                    <li class='linkNav'><a href='#'>$name</a></li>
                     <li class='searchNav'>
                         <input type='text'  autocomplete='off' placeholder='Search By Name' id='search'>
                         <div id='ajax'></div>
@@ -62,8 +62,6 @@ class BaseView
 
     /**
      * @param string $title
-     *
-     * @param string $js_file
      *
      * @param array $cssElements
      *
