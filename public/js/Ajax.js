@@ -48,7 +48,7 @@ class Ajax {
                     data: {ajax: 1, name: self.input},
                     success: function () {
                         jQuery.ajax({
-                            url: '../'+fileName,
+                            url: '../../'+fileName,
                             type: 'post',
                             context: this,
                             success: function (response){
