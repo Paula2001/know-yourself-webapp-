@@ -8,13 +8,13 @@ echo BaseView::header('Home');
 
 <body>
 <?php
-echo BaseView::navigation('index');
-?>
 
-<search>
-    <input type='text'  autocomplete="off" placeholder='Search with name only' id='search'>
-    <div id="ajax"></div>
-</search>
+echo BaseView::navigation();
+?>
+<p id="note">This is a website kinda similar to saraha please don't send any sensitive data
+through this website as it's for training proposes
+<br>email : polagorge@gmail.com</p>
+
 <script src=/js/search/searchBin.js type='text/javascript'></script>
 
 
