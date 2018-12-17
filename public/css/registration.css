@@ -15,6 +15,7 @@ body{
 }
 #regForm{
     z-index: 1;
+    max-width: 420px;
     width: -moz-fit-content;
     margin: 0 auto;
     position: relative;
@@ -56,6 +57,7 @@ label{
     font-size: 19px;
     color: white;
     position: relative;
+    cursor: pointer;
     border: none;
     padding: 10 43% 10 42%;
     background: linear-gradient(#69a74e, #3b6e22);
