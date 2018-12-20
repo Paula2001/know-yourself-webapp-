@@ -45,6 +45,7 @@ abstract class Controller
 
         if (method_exists($this, $method)) {
             if ($this->before() !== false) {
+                $this->logout();
                 call_user_func_array([$this, $method], $args);
                 $this->after();
             }
@@ -56,10 +57,21 @@ abstract class Controller
     /**
      * Before filter - called before an action method.
      *
-     * @return void
+     * @return BOOLEAN
      */
     protected function before()
     {
+
+
+    }
+
+    /**
+     * logout function un set session id
+     */
+    private function logout(){
+        if(isset($_POST['logout'])) {
+            unset($_SESSION['id']);
+        }
     }
 
     /**

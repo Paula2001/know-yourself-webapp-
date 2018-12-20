@@ -2,15 +2,15 @@
 
 namespace App\Controllers;
 
+use App\Models\Message;
 use \Core\View;
-use App\Models\Post;
 
 /**
- * Posts controller
+ * Messages controller
  *
  * PHP version 5.4
  */
-class Posts extends \Core\Controller
+class Messages extends \Core\Controller
 {
 
     /**
@@ -20,22 +20,14 @@ class Posts extends \Core\Controller
      */
     public function indexAction()
     {
-        $posts = Post::getAll();
+        $posts = Message::getAll();
 
         View::renderTemplate('Posts/index.html', [
             'posts' => $posts
         ]);
     }
 
-    /**
-     * Show the add new page
-     *
-     * @return void
-     */
-    public function addNewAction()
-    {
-        echo 'Hello from the addNew action in the Posts controller!';
-    }
+
     
     /**
      * Show the edit page

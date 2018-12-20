@@ -7,8 +7,6 @@
  *
  */
 session_start();
-$_SESSION['login'] = true ;
-
 
 /**
  * Front controller
@@ -16,11 +14,6 @@ $_SESSION['login'] = true ;
  * PHP version 5.4
  */
 
-
-/**
- * Javascript lib.
- *
- */
 
 /**
  * Composer

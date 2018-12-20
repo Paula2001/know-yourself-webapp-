@@ -1,6 +1,5 @@
 <?php
     namespace App\Models ;
-    use mysqli ;
     class Reg extends \Core\Model {
         public static function insertData($id,$firstName,$lastName,$passwd,$email,$age,$gender,$currentTime){
             $dp = self::getDB();

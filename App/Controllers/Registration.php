@@ -14,7 +14,7 @@ class Registration extends \Core\Controller{
         if(isset($_COOKIE['set'])) {
             setcookie('set' ,'',time() - 1);
         }
-        if(isset($_POST['ajax'])) {
+        if(isset($_POST['ajax']) && $_POST['ajax'] === 'reg') {
             $resultEncode = json_encode(Reg::checkEmail($_POST['name']));
             $_SESSION['data'] = $resultEncode;
         }
@@ -53,7 +53,7 @@ class Registration extends \Core\Controller{
             $extension  = $this->imageUploading($this->id);
 
         }
-        View::render('Registration/complete.php' , $this->convertToArray($age ,$extension ) ) ;
+        View::render('Registration/complete.php' , $this->convertToArray($age ,$extension) ) ;
     }
     /**
     *
@@ -116,7 +116,11 @@ class Registration extends \Core\Controller{
         $name = ucfirst($_POST['firstName']) . " " .  ucfirst($_POST['lastName']) ;
         $email = $_POST['email'];
         $gender = ($_POST['gender'])? "Male" : "Female" ;
-        return array($image_name ,$name ,$email ,$age ,$gender);
+        return array('image_name' => $image_name,
+            'name' => $name ,
+            'email' => $email ,
+            'age' => $age ,
+            'gender' => $gender);
     }
 
 }
